@@ -2,13 +2,14 @@ import React from "react";
 import api from "../../utils/Api";
 import Card from "../Card/Card";
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
+function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
+  const [userName, setUserName] = React.useState("");
+  const [userDescription, setUserDescription] = React.useState("");
+  const [userAvatar, setUserAvatar] = React.useState("");
   const [cards, setCards] = React.useState([]);
-  // подгрузка данных профиля
+
   React.useEffect(() => {
+      // подгрузка данных профиля
     api
       .getProfile()
       .then((res) => {
@@ -22,10 +23,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
         setUserAvatar(data.avatar);
       })
       .catch((err) => console.log(err));
-  }, []);
-
-  // Подгрузка списка карточек
-  React.useEffect(() => {
+        // Подгрузка списка карточек
     api
       .getInitialCards()
       .then((res) => {
@@ -68,7 +66,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
         </section>
         <section>
           <ul className="elements">
-            {cards.map((card) => 
+            {cards.map((card) => (
               <Card
                 key={card._id}
                 link={card.link}
@@ -77,11 +75,10 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
                 card={card}
                 onCardClick={onCardClick}
               />
-            )}
+            ))}
           </ul>
         </section>
       </main>
-      
     </>
   );
 }
