@@ -1,7 +1,10 @@
 import React from "react";
+import useClose from "../../utils/useClose";
+
 function PopupWithForm({ title, name, isOpen, onClose, BTNtext, children, onSubmit}) {
+  useClose(isOpen,onClose)
   return (
-    <section className={`popup popup_type_${name} ${isOpen && 'popup_opend'}`}>
+    <section className={`popup popup_type_${name} ${isOpen ? 'popup_opend' : ''}`}>
       <div className="popup__shell">
         <button type="button" className="popup__close buttonEffect" onClick={onClose}></button>
         <form className="popup__container" name={`${name}Form`} onSubmit={onSubmit}>

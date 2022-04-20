@@ -85,6 +85,14 @@ class Api {
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
       .catch(console.log);
   }
+  toggleLikeCards(id, currentLike) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes/`, {
+      method: currentLike ? "PUT" : "DELETE",
+      headers: this._headers,
+    })
+      .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+      .catch(console.log);
+  }
 }
 
 //render loading
@@ -105,4 +113,4 @@ const api = new Api({
   },
 });
 
-export default api
+export default api;

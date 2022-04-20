@@ -7,7 +7,6 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, cards, onC
 
 
   return (
-    <>
       <main className="main">
         <section className="profile">
           <div className="profile__avatar-editshell">
@@ -52,7 +51,6 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, cards, onC
           </ul>
         </section>
       </main>
-    </>
   );
 }
 

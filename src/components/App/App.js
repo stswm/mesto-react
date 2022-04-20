@@ -8,6 +8,7 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import EditProfilePopup from "../EditProfilePopup/EditProfilePopup";
 import EditAvatarPopup from "../EditAvatarPopup/EditAvatarPopup";
 import AddPlacePopup from "../AddPlacePopup/AddPlacePopup";
+import useClose from "../../utils/useClose";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -43,52 +44,64 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setSelectedCard({});
   }
-  useEffect(() => {
-    if (
-      isEditAvatarPopupOpen ||
-      isEditProfilePopupOpen ||
-      isAddPlacePopupOpen ||
-      selectedCard
-    ) {
-      function handleESC(e) {
-        if (e.key === "Escape") {
-          closeAllPopups();
-        }
-      }
-      document.addEventListener("keydown", handleESC);
-      return () => {
-        document.removeEventListener("keydown", handleESC);
-      };
-    }
-  }, [
-    isEditAvatarPopupOpen,
-    isEditProfilePopupOpen,
-    isAddPlacePopupOpen,
-    selectedCard,
-  ]);
+  // useEffect(() => {
+  //   if (
+  //     isEditAvatarPopupOpen ||
+  //     isEditProfilePopupOpen ||
+  //     isAddPlacePopupOpen ||
+  //     selectedCard
+  //   ) {
+  //     function handleESC(e) {
+  //       if (e.key === "Escape") {
+  //         closeAllPopups();
+  //       }
+  //     }
+  //     document.addEventListener("keydown", handleESC);
+  //     return () => {
+  //       document.removeEventListener("keydown", handleESC);
+  //     };
+  //   }
+  // }, [
+  //   isEditAvatarPopupOpen,
+  //   isEditProfilePopupOpen,
+  //   isAddPlacePopupOpen,
+  //   selectedCard,
+  // ]);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    if (!isLiked) {
-      api
-        .addLike(card._id)
-        .then((newCard) => {
-          setCards((state) =>
-            state.map((c) => (c._id === card._id ? newCard : c))
-          );
-        })
-        .catch((err) => console.log(err));
-    } else {
-      api
-        .deleteLike(card._id)
-        .then((newCard) => {
-          setCards((state) =>
-            state.map((c) => (c._id === card._id ? newCard : c))
-          );
-        })
-        .catch((err) => console.error(err));
-    }
+    api
+      .toggleLikeCards(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => c._id === card._id ? newCard : c)
+        );
+      })
+      .catch((err) => console.log(err));
   }
+
+  // function handleCardLike(card) {
+  //   const isLiked = card.likes.some((i) => i._id === currentUser._id);
+  //   if (!isLiked) {
+  //     api
+  //       .addLike(card._id)
+  //       .then((newCard) => {
+  //         setCards((state) =>
+  //           state.map((c) => (c._id === card._id ? newCard : c))
+  //         );
+  //       })
+  //       .catch((err) => console.log(err));
+  //   } else {
+  //     api
+  //       .deleteLike(card._id)
+  //       .then((newCard) => {
+  //         setCards((state) =>
+  //           state.map((c) => (c._id === card._id ? newCard : c))
+  //         );
+  //       })
+  //       .catch((err) => console.error(err));
+  //   }
+  // }
 
   function handleDelete(card) {
     api
