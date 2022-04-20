@@ -1,17 +1,27 @@
-import {useEffect} from 'react'
+import { useEffect } from "react";
 
 export default function useClose(isOpen, handleClose) {
   useEffect(() => {
     if (!isOpen) return;
-    
-    function handleESC(e) {
-      if (e.key === "Escape") {
-        handleClose()
+
+    function handleCloseTrigger(e) {
+      if (e.key === "Escape" || e.target === e.currentTarget) {
+        handleClose();
       }
     }
 
-    document.addEventListener("keydown", handleESC);
+    document.addEventListener("keydown", handleCloseTrigger);
+    document
+      .querySelectorAll(".popup")
+      .forEach((popup) => popup.addEventListener("click", handleCloseTrigger));
 
-    return () => document.removeEventListener("keydown", handleESC);
+    return () => {
+      document.removeEventListener("keydown", handleCloseTrigger);
+      document
+        .querySelectorAll(".popup")
+        .forEach((popup) =>
+          popup.removeEventListener("click", handleCloseTrigger)
+        );
+    };
   }, [isOpen]);
-} 
+}
