@@ -2,7 +2,7 @@ import React, { useContext, useRef, useEffect } from "react";
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
-export default function EditAvatarPopup({ isOpen, onClose, onSubmit }) {
+export default function EditAvatarPopup({ isOpen, onClose, onSubmit, isLoading }) {
   const currentUser = useContext(CurrentUserContext);
 
   const inputRef = useRef();
@@ -28,9 +28,10 @@ export default function EditAvatarPopup({ isOpen, onClose, onSubmit }) {
       onSubmit={handleSubmit}
       name="edit-avatar"
       title="Обновить аватар"
-      BTNtext="Сохранить"
+      BTNtext={isLoading ? "Сохраняем..." : "Сохранить"}
     >
       <div style={{display: "flex", flexWrap: "wrap"}}>
+      <div>
         <input
           onBlur={changePreviw}
           ref={inputRef}
@@ -42,6 +43,7 @@ export default function EditAvatarPopup({ isOpen, onClose, onSubmit }) {
           required
         />
         <div id="error_avatar" className="popup__input-error-message"></div>
+        </div>
         <img
           id="test"
           src={currentUser.avatar}

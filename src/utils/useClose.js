@@ -13,14 +13,14 @@ export default function useClose(isOpen, handleClose) {
     document.addEventListener("keydown", handleCloseTrigger);
     document
       .querySelectorAll(".popup")
-      .forEach((popup) => popup.addEventListener("click", handleCloseTrigger));
+      .forEach((popup) => popup.addEventListener("mousedown", handleCloseTrigger));
 
     return () => {
       document.removeEventListener("keydown", handleCloseTrigger);
       document
         .querySelectorAll(".popup")
         .forEach((popup) =>
-          popup.removeEventListener("click", handleCloseTrigger)
+          popup.removeEventListener("mousedown", handleCloseTrigger)
         );
     };
   }, [isOpen]);

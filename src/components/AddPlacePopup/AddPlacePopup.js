@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import PopupWithForm from '../PopupWithForm/PopupWithForm'
 
 
-export default function AddPlacePopup({ isOpen, onClose, onSubmit }) {
+export default function AddPlacePopup({ isOpen, onClose, onSubmit, isLoading }) {
   const [name, setName] = useState('')
   const [link, setLink] = useState('')
   
@@ -23,7 +23,7 @@ export default function AddPlacePopup({ isOpen, onClose, onSubmit }) {
     onSubmit={handleSubmit}
     name="add-card"
     title="Новое место"
-    BTNtext="Добавить"
+    BTNtext={isLoading ? "Добавляем..." : "Добавить"}
   >
     <input
       name="name"

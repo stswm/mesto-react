@@ -9,7 +9,8 @@
   border-radius: 10px;
   color: #000;
   position: relative;
-  justify-content: center;
+  /* justify-content: center; */
+  justify-content: space-evenly
 }
 @media screen and (max-width: 786px) {
   .popup__container {
