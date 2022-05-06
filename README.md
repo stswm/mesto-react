@@ -37,6 +37,15 @@
 
 ---
 
+## Для запуска
+
+Качаем проект в шапке репозитория или
+<a href="https://github.com/stswm/mesto-react/archive/refs/heads/main.zip"> тут <a>
+устанавливаем npm
+
+> -npm install
+> -npm start
+
 
 ## Стек
 
